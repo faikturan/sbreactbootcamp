@@ -11,6 +11,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+@Data
 @Schema(description = "A user object")
 public class User {
 
