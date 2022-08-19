@@ -68,7 +68,7 @@ public class GenresController {
     }
     @Operation(summary = "Creates a new genres")
     @PostMapping
-    public R<Genres> addBook(@RequestBody Genres genres){
+    public R<Genres> addGenres(@RequestBody Genres genres){
         try{
             genresRepository.save(genres);
         }catch (Exception e){
@@ -80,7 +80,7 @@ public class GenresController {
 
     @Operation(summary = "Update an existing genres")
     @PutMapping
-    public R<Genres> updateBook(@Parameter(description="Update an existing genres.") @RequestBody Genres genres){
+    public R<Genres> updateGenres(@Parameter(description="Update an existing genres.") @RequestBody Genres genres){
         try{
 
          genresRepository.save(genres);
