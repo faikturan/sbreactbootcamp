@@ -68,11 +68,11 @@ public class GenresController {
     }
     @Operation(summary = "Creates a new genres")
     @PostMapping
-    public R<Genres> addUser(@RequestBody Genres genres){
+    public R<Genres> addBook(@RequestBody Genres genres){
         try{
             genresRepository.save(genres);
         }catch (Exception e){
-            logger.error("Gennres a new user fails:" +e.getMessage());
+            logger.error("Genres create is  fails:" +e.getMessage());
         }
 
         return new R<Genres>().success();
@@ -80,12 +80,12 @@ public class GenresController {
 
     @Operation(summary = "Update an existing genres")
     @PutMapping
-    public R<Genres> updateUser(@Parameter(description="Update an existing genres.") @RequestBody Genres genres){
+    public R<Genres> updateBook(@Parameter(description="Update an existing genres.") @RequestBody Genres genres){
         try{
 
          genresRepository.save(genres);
         }catch (Exception e){
-            logger.error("Update an existing user fails:" +e.getMessage());
+            logger.error("Update an existing genres fails:" +e.getMessage());
         }
 
         return new R<Genres>().success();
@@ -98,7 +98,7 @@ public class GenresController {
         try{
             genresRepository.deleteById(Id);
         }catch(Exception e){
-            logger.error("Delete an existing user fails:" +e.getMessage());
+            logger.error("Delete an existing book fails:" +e.getMessage());
         }
 
         return new R<Genres>().success();
