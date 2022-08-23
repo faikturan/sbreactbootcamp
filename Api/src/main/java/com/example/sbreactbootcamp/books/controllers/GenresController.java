@@ -84,6 +84,7 @@ public class GenresController {
         try{
 
          genresRepository.save(genres);
+
         }catch (Exception e){
             logger.error("Update an existing genres fails:" +e.getMessage());
         }
