@@ -74,6 +74,14 @@ class Book extends Component {
   };
 
   render() {
+    const { length: count } = this.state.books;
+    const { pageSize, currentPage, sortColumn, searchQuery } = this.state;
+    const { user } = this.props;
+
+    if(count === 0) return <p>There are no books in the database.</p>
+
+    const { totalCount, data: books } = this.getPagedData();
+
     return (
       <div className="container">
         <Breadcrumb>
@@ -81,7 +89,11 @@ class Book extends Component {
         </Breadcrumb>
         <div className="row">
           <div className="col-sm-4"></div>
-          <ListGroup />
+          <ListGroup 
+            items={this.state.genres}
+            selectedItem={this.state.selectedGenre}
+            onItemSelect={this.handleGenreSelect}
+          />
 
           <div className="col-sm-8">
             {user && (
@@ -91,7 +103,16 @@ class Book extends Component {
             )}
             <p>Showing {totalCount} books in the database</p>
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
-            <ListGroup />
+            <BooksTable 
+              books={books}
+              sortColumn={sortColumn}
+              onSort={onSort}
+            />
+            <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={this.handlePageChange} />
           </div>
         </div>
       </div>
