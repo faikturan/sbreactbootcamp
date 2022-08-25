@@ -26,7 +26,7 @@ public class BooksController {
     IBooksRepository booksRepository;
 
     @Operation(summary ="Find the Book list")
-    @GetMapping("")
+    @GetMapping(value="")
     @ResponseBody
     public R<List<Books>> findBooks(){
         List<Books> booksList = null;
@@ -40,7 +40,7 @@ public class BooksController {
         return new R<List<Books>>().success().data(booksList);
     }
     @Operation(summary = "Retrieve an existing book")
-    @GetMapping("/{name}")
+    @GetMapping(value="/{name}")
     public  R<Books> findBookByName (@Parameter(description = "Find Book By BookName")@PathVariable String bookName ) {
         var  result =booksRepository.findById(bookName);
 
@@ -53,7 +53,7 @@ public class BooksController {
 
     }
     @Operation(summary = "Retrieve an existing book")
-    @GetMapping("/{Id}")
+    @GetMapping(value="/{Id}")
     public R<Books>findBookById (@Parameter(description = "Find book By Id")@PathVariable String Id ) {
         var  result =booksRepository.findById(Id);
 

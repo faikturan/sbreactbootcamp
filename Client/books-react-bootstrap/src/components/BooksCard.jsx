@@ -84,7 +84,7 @@ function BooksCard(props) {
                             <Card.Img
                               variant="top"
                               src={
-                                require(`../images/${item.isbn}.jpg`).default
+                                require(`../images/${item.isbn}.jpg`)
                               }
                             />
                             <Card.Body>

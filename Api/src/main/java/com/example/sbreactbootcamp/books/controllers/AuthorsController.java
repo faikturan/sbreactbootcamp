@@ -26,7 +26,7 @@ public class AuthorsController {
     IAuthorsRepository authorsRepository;
 
     @Operation(summary ="Find the Author list")
-    @GetMapping("")
+    @GetMapping(value="")
     @ResponseBody
     public R<List<Authors>> findAuthors(){
         List<Authors> authorsList = null;
@@ -41,7 +41,7 @@ public class AuthorsController {
 
 
     @Operation(summary = "Retrieve an existing authors")
-    @GetMapping("/{Id}")
+    @GetMapping(value="/{Id}")
     public  R<Authors> findAuthorsById (@Parameter(description = "Find authors By Id")@PathVariable String Id ) {
         var  result =authorsRepository.findById(Id);
 

@@ -41,7 +41,7 @@ public class GenresController {
         return new R<List<Genres>>().success().data(genresList);
     }
     @Operation(summary = "Retrieve an existing genres")
-    @GetMapping("/{name}")
+    @GetMapping(value="/{name}")
     public  R<Genres> findGenresByName (@Parameter(description = "Find Genres By Id")@PathVariable String bookName ) {
         var  result =genresRepository.findById(bookName);
 
@@ -54,7 +54,7 @@ public class GenresController {
 
     }
     @Operation(summary = "Retrieve an existing genres")
-    @GetMapping("/{Id}")
+    @GetMapping(value="/{Id}")
     public  R<Genres> findGenresById (@Parameter(description = "Find Genres By Id")@PathVariable String Id ) {
         var  result =genresRepository.findById(Id);
 

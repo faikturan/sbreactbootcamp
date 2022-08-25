@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Api/sbreactbootcamp.iml" filepath="$PROJECT_DIR$/Api/sbreactbootcamp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/sbreactbootcamp-master.iml" filepath="$PROJECT_DIR$/.idea/sbreactbootcamp-master.iml" />
     </modules>
   </component>
 </project>
