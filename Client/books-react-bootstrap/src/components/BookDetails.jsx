@@ -8,11 +8,13 @@ import Button from 'react-bootstrap/Button'
 import Badge from 'react-bootstrap/Badge'
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import { getBook } from "../services/bookService";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
  
 function BookDetails(props) {
     const [data, setData] = useState([]);
     let {id} = useParams();
+
+    const navigate = useNavigate();
 
     const getData = async () => {
         try {
@@ -30,9 +32,9 @@ function BookDetails(props) {
 
 
 
-    let imageSrc = require(`../images/default.jpg`).default;
+    let imageSrc = require(`../images/default.jpg`);
     if(data.isbn)
-        imageSrc = require(`../images/${data.isbn}.jpg`).default;
+        imageSrc = require(`../images/${data.isbn}.jpg`);
 
     const ColoredLine = ({ color }) => (
         <hr
@@ -45,7 +47,7 @@ function BookDetails(props) {
     );
 
     const handelBackToBooks = () =>{
-        this.props.history.push('/books')
+        navigate(-1);
     }
 
     return (

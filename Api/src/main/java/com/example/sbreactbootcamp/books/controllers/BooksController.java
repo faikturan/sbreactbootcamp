@@ -19,87 +19,74 @@ import java.util.List;
 @Tag(name = "default")
 @CrossOrigin("*")
 public class BooksController {
-
     private static final Logger logger= LoggerFactory.getLogger(BooksController.class);
 
     @Autowired
     IBooksRepository booksRepository;
 
-    @Operation(summary ="Find the Book list")
-    @GetMapping(value="")
-    @ResponseBody
-    public R<List<Books>> findBooks(){
-        List<Books> booksList = null;
+    @Operation(summary ="Creates a new books.")
+    @PostMapping
+    public R<Books> addBook(@RequestBody Books books) {
+        try {
+            booksRepository.save(books);
+        } catch (Exception e) {
+            logger.error("Creates a new books fails:" + e.getMessage());
+        }
 
-        try{
+        return new R<Books>().success();
+    }
+
+    @Operation(summary ="Update an existing books.")
+    @PutMapping("")
+    public R<Books> updateBook(@Parameter(description="Update an existing books.")@RequestBody Books books) {
+        try {
+            booksRepository.save(books);
+        } catch (Exception e) {
+            logger.error("Update an existing books fails:" + e.getMessage());
+        }
+
+        return new R<Books>().success();
+    }
+
+    @Operation(summary ="Retrieve an existing Book.")
+    @GetMapping("/{id}")
+    public R<Books> findBookById(@Parameter(description="A Book's id")@PathVariable String id) {
+        Books books = null;
+        try {
+            books = booksRepository.findById(id).orElse(new Books());
+        } catch (Exception e) {
+            logger.error("Retrieve an existing books fails:" + e.getMessage());
+        }
+
+        return new R<Books>().success().data(books);
+    }
+
+
+    @Operation(summary ="Delete an existing Book.")
+    @DeleteMapping(value = "/{id}")
+    public R<Books> deleteBook(@Parameter(description="Delete an existing Book.")@RequestParam(value = "id") final String id) {
+        try {
+            booksRepository.deleteById(id);
+        } catch (Exception e) {
+            logger.error("Delete an existing Book fails:" + e.getMessage());
+        }
+
+        return new R<Books>().success();
+    }
+
+    @Operation(summary ="Find the Book list")
+    @GetMapping("")
+    @ResponseBody
+    public R<List<Books>> findBooks() {
+        List<Books> booksList = null;
+        try {
             booksList = booksRepository.findAll();
-        }catch (Exception e){
-            logger.error("Find the Book list fails: " +e.getMessage());
+
+        } catch (Exception e) {
+            logger.error("Find the Book list fails:" + e.getMessage());
         }
 
         return new R<List<Books>>().success().data(booksList);
     }
-    @Operation(summary = "Retrieve an existing book")
-    @GetMapping(value="/{name}")
-    public  R<Books> findBookByName (@Parameter(description = "Find Book By BookName")@PathVariable String bookName ) {
-        var  result =booksRepository.findById(bookName);
 
-
-        if (result.isEmpty()) {
-            logger.error("Find the book by id fails" );
-        }
-        return new R<Books>().success().data(result.get());
-
-
-    }
-    @Operation(summary = "Retrieve an existing book")
-    @GetMapping(value="/{Id}")
-    public R<Books>findBookById (@Parameter(description = "Find book By Id")@PathVariable String Id ) {
-        var  result =booksRepository.findById(Id);
-
-
-        if (result.isEmpty()) {
-            logger.error("Find the book by id fails" );
-        }
-        return new R<Books>().success().data(result.get());
-
-
-    }
-    @Operation(summary = "Creates a new book")
-    @PostMapping
-    public R<Books>addBook(@RequestBody Books book){
-        try{
-            booksRepository.save(book);
-        }catch (Exception e){
-            logger.error("Book create is fail :" +e.getMessage());
-        }
-
-        return new R<Books>().success();
-    }
-
-    @Operation(summary = "Update an existing book")
-    @PutMapping
-    public R<Books> updateBook(@Parameter(description="Update an existing book.") @RequestBody Books books){
-        try{
-
-            booksRepository.save(books);
-        }catch (Exception e){
-            logger.error("Update an existing books fails:" +e.getMessage());
-        }
-
-        return new R<Books>().success();
-    } //@Transactional(readOnly = true)
-    @Operation(summary = "Retrieve an existing bok")
-    @DeleteMapping(value = "/{id}")
-    //@RequestMapping(method = RequestMethod.DELETE)
-    public R<Books> deleteBook(@Parameter(description = "Delete an existing book.") @PathVariable final String Id){
-
-        try{
-            booksRepository.deleteById(Id);
-        }catch(Exception e){
-            logger.error("Delete an existing book fails:" +e.getMessage());
-        }
-
-        return new R<Books>().success();
-    }
 }
